@@ -1,11 +1,11 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
-const developerName = 'FitForge • Developer: Sadat Sayed Mubasher';
+const developerName = 'FitForge Developer: Sadat Sayed Mubasher';
 const timestamp = ref(new Date().toLocaleString());
 
 onMounted(() => {
-  console.info(`${developerName} • Impressum geöffnet um ${timestamp.value}`);
+  console.info(`${developerName} Impressum geöffnet um ${timestamp.value}`);
 });
 </script>
 
@@ -25,13 +25,12 @@ onMounted(() => {
         </div>
         <div class="content-block">
           <div class="label">Kontakt</div>
-          <div class="value">Tel: +43 660 123456 · Mail: hello@fitforge.app</div>
+          <div class="value">Tel: +43 660 123456, Mail: hello@fitforge.app</div>
         </div>
         <div class="content-block">
           <div class="label">Entwickler:in</div>
           <div class="value">
             {{ developerName }}
-            <q-badge outline color="secondary" class="q-ml-sm">Konsole öffnen</q-badge>
           </div>
         </div>
         <div class="content-block">
@@ -39,14 +38,7 @@ onMounted(() => {
           <div class="value">{{ timestamp }}</div>
         </div>
       </div>
-
-      <q-separator class="q-my-md" />
-
-      <div class="note">
-        <q-icon name="info" size="20px" class="q-mr-sm" />
-        Dieser Screen ist für den Screenshot mit geöffneter Browser-Konsole gedacht.
-        Der Log enthält deinen Namen und Zeitstempel.
-      </div>
+      
     </div>
   </q-page>
 </template>
@@ -58,11 +50,11 @@ onMounted(() => {
 }
 
 .fitforge-card {
-  background: linear-gradient(145deg, rgba(12, 18, 34, 0.95), rgba(22, 33, 54, 0.92));
-  color: #e8edf5;
+  background: #ffffff;
+  color: #1c1c1c;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25);
+  border: 1px solid #e1e1e1;
+  box-shadow: none;
 }
 
 .card-header {
@@ -73,18 +65,18 @@ onMounted(() => {
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #7cd0c3;
+  color: #4f4f4f;
   margin-bottom: 4px;
 }
 
 .title {
   font-size: 28px;
   font-weight: 700;
-  color: #fefefe;
+  color: #1c1c1c;
 }
 
 .subtitle {
-  opacity: 0.75;
+  opacity: 0.8;
   margin-top: 4px;
 }
 
@@ -104,7 +96,7 @@ onMounted(() => {
   font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  opacity: 0.7;
+  color: #4f4f4f;
 }
 
 .value {
@@ -117,6 +109,17 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #b6c1d8;
+  color: #4a4a4a;
+}
+
+.neutral-chip {
+  background: #ededed;
+  color: #1c1c1c;
+  border-color: #d6d6d6;
+}
+
+.neutral-chip.q-chip--outline {
+  background: transparent;
+  color: #2c2c2c;
 }
 </style>

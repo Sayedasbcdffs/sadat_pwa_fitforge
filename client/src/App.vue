@@ -9,9 +9,9 @@ const route = useRoute();
 const swStatus = ref({ status: 'pending' });
 
 const navItems = [
-  { to: '/', name: 'home', label: 'Dashboard', icon: 'dashboard' },
-  { to: '/about', name: 'about', label: 'Coaching', icon: 'insights' },
-  { to: '/impressum', name: 'impressum', label: 'Impressum', icon: 'gavel' },
+  { to: '/', name: 'home', label: 'Dashboard'},
+  { to: '/about', name: 'about', label: 'Coaching'},
+  { to: '/impressum', name: 'impressum', label: 'Impressum'},
 ];
 
 const logo = `../public/icon/sadat_logo.png`;
@@ -63,12 +63,12 @@ provide('swStatus', swStatus);
 
         <q-space />
 
-        <q-chip dense color="white" text-color="black" icon="bolt">
+        <q-chip dense icon="bolt" class="neutral-chip">
           {{ swStatusLabel }}
         </q-chip>
       </q-toolbar>
 
-      <q-tabs align="left" indicator-color="white" active-color="white" dense class="fitforge-tabs">
+      <q-tabs align="left" dense class="fitforge-tabs">
         <q-route-tab v-for="item in navItems" :key="item.to" :to="item.to" :label="item.label" :icon="item.icon" />
       </q-tabs>
     </q-header>
@@ -76,7 +76,6 @@ provide('swStatus', swStatus);
     <q-drawer v-model="leftDrawerOpen" side="left" :width="260" class="fitforge-drawer" show-if-above>
       <div class="drawer__head">
         <div class="drawer__title">Navigation</div>
-        <div class="drawer__meta">Für Screenshot: Drawer öffnen</div>
       </div>
       <q-list separator>
         <q-item v-for="item in navItems" :key="item.to" clickable v-ripple :active="activeRoute === item.name" :to="item.to">
@@ -118,9 +117,7 @@ provide('swStatus', swStatus);
 }
 
 body {
-  background: radial-gradient(circle at 20% 20%, rgba(100, 244, 172, 0.12), transparent 35%),
-    radial-gradient(circle at 80% 10%, rgba(92, 123, 255, 0.12), transparent 25%),
-    #f5f7fb;
+  background: #f5f5f5;
 }
 
 .fitforge-layout {
@@ -128,13 +125,15 @@ body {
 }
 
 .fitforge-header {
-  background: linear-gradient(90deg, #0f1629, #172640);
-  color: #ffffff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background: #f7f7f7;
+  color: #1c1c1c;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #e1e1e1;
 }
 
 .fitforge-tabs {
   padding-left: 6px;
+  border-top: 1px solid #e1e1e1;
 }
 
 .brand {
@@ -154,12 +153,13 @@ body {
 
 .brand__meta {
   font-size: 12px;
-  color: #cbd5f5;
+  color: #4f4f4f;
 }
 
 .fitforge-drawer {
-  background: #0f1629;
-  color: #e7ecf7;
+  background: #f2f2f2;
+  color: #1c1c1c;
+  border-right: 1px solid #e1e1e1;
 }
 
 .drawer__head {
@@ -172,7 +172,7 @@ body {
 }
 
 .drawer__meta {
-  color: #9db4e7;
+  color: #4f4f4f;
   font-size: 13px;
 }
 
@@ -186,16 +186,49 @@ body {
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7cd0c3;
+  color: #4f4f4f;
 }
 
 .drawer__tip {
-  color: #c3d1ee;
+  color: #4a4a4a;
   margin-top: 6px;
   line-height: 1.4;
 }
 
 .fitforge-body {
   padding: 12px;
+}
+
+.neutral-chip {
+  background: #ededed;
+  color: #1c1c1c;
+  border-color: #d6d6d6;
+}
+
+.neutral-chip.q-chip--dense {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.fitforge-tabs .q-tab {
+  color: #444;
+}
+
+.fitforge-tabs .q-tab--active {
+  color: #1c1c1c;
+}
+
+.fitforge-tabs .q-tabs__indicator {
+  background: #b5b5b5;
+}
+
+.fitforge-drawer .q-item {
+  border-radius: 10px;
+  margin: 4px 8px;
+}
+
+.fitforge-drawer .q-item--active {
+  background: #e7e7e7;
+  color: #1c1c1c;
 }
 </style>

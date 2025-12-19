@@ -1,22 +1,22 @@
 <script setup>
-import { computed, inject } from 'vue';
-import { useWorkoutStore } from '../stores/workoutStore';
+import { computed, inject } from "vue";
+import { useWorkoutStore } from "../stores/workoutStore";
 
 const workoutStore = useWorkoutStore();
-const swStatus = inject('swStatus', null);
+const swStatus = inject("swStatus", null);
 
 const topWorkouts = computed(() => workoutStore.workouts.slice(0, 4));
 const stats = computed(() => [
-  { label: 'Strength blocks', value: workoutStore.strengthCount },
-  { label: 'Cardio sessions', value: workoutStore.cardioCount },
-  { label: 'Ø Duration', value: `${workoutStore.averageDuration} min` },
+  { label: "Strength blocks", value: workoutStore.strengthCount },
+  { label: "Cardio sessions", value: workoutStore.cardioCount },
+  { label: "Duration", value: `${workoutStore.averageDuration} min` },
 ]);
 
 const swLabel = computed(() => {
-  if (!swStatus) return 'Service Worker pending';
+  if (!swStatus) return "Service Worker pending";
   const value = swStatus.value.status || swStatus.value;
-  if (value === 'offline-ready') return 'Offline ready';
-  if (value === 'registered') return 'Workbox ready';
+  if (value === "offline-ready") return "Offline ready";
+  if (value === "registered") return "Workbox ready";
   return `SW: ${value}`;
 });
 </script>
@@ -25,23 +25,8 @@ const swLabel = computed(() => {
   <q-page class="fitforge-page q-pa-md">
     <section class="hero">
       <div class="hero__copy">
-        <div class="eyebrow">FitForge Gym</div>
+        <div class="eyebrow">FitForge</div>
         <h1>Forge routine, track metrics, stay ready.</h1>
-        <p>
-          Portrait zeigt die Karten-Ansicht mit Navigation, in Landscape erweitert sich das Grid
-          automatisch. Mindestens drei Sessions sind sichtbar, damit deine Screenshots passen.
-        </p>
-        <div class="hero__chips">
-          <q-chip color="primary" text-color="white" icon="offline_bolt" size="md">
-            {{ swLabel }}
-          </q-chip>
-          <q-chip outline color="secondary" icon="phone_iphone">Mobile Portrait / Landscape</q-chip>
-          <q-chip outline color="accent" icon="menu">Navigation ein/aus klappbar</q-chip>
-        </div>
-      </div>
-      <div class="hero__cta">
-        <q-btn color="primary" icon="play_arrow" label="Start Session" class="q-mb-sm" />
-        <q-btn outline color="white" icon="qr_code" label="Zeige Check-in Code" />
       </div>
     </section>
 
@@ -51,37 +36,51 @@ const swLabel = computed(() => {
           <div>
             <div class="eyebrow">Main Screen</div>
             <div class="panel__title">Aktive Sessions</div>
-            <div class="subtitle">
-              Öffne links die Navigation für den Screenshot "Portrait + Navigation" und klappe sie für
-              die Portrait-only Variante wieder zu.
-            </div>
           </div>
-          <q-btn flat color="secondary" icon="filter_list" label="Sortieren" />
         </div>
 
         <div class="workout-list">
-          <q-card v-for="item in topWorkouts" :key="item.id" flat bordered class="workout-card">
+          <q-card
+            v-for="item in topWorkouts"
+            :key="item.id"
+            flat
+            bordered
+            class="workout-card"
+          >
             <div class="card__row">
               <div class="badge">{{ item.category }}</div>
-              <q-chip dense color="accent" text-color="black" icon="timer">{{ item.durationMinutes }} min</q-chip>
+              <q-chip dense class="neutral-chip"
+                >{{ item.durationMinutes }} min</q-chip
+              >
             </div>
             <div class="card__title">
               {{ item.name }}
               <span class="difficulty">{{ item.difficulty }}</span>
             </div>
             <div class="card__meta">
-              <q-icon name="fitness_center" size="18px" class="q-mr-xs" /> {{ item.muscleGroup.join(', ') }}
+              <q-icon name="fitness_center" size="18px" class="q-mr-xs" />
+              {{ item.muscleGroup.join(", ") }}
             </div>
             <div class="card__meta small">
               <q-icon name="sensors" size="18px" class="q-mr-xs" />
               Sensoren:
-              <span class="sensor" v-for="sensor in item.sensorData" :key="sensor.type">
+              <span
+                class="sensor"
+                v-for="sensor in item.sensorData"
+                :key="sensor.type"
+              >
                 {{ sensor.type }} – {{ sensor.description }}
               </span>
             </div>
             <div class="card__footer">
               <div class="vibe">{{ item.vibe }}</div>
-              <q-btn dense outline color="primary" icon="play_circle" label="Los" />
+              <q-btn
+                dense
+                outline
+                icon="play_circle"
+                label="Los"
+                class="neutral-btn"
+              />
             </div>
           </q-card>
         </div>
@@ -89,9 +88,8 @@ const swLabel = computed(() => {
 
       <div class="panel side">
         <div class="panel__head">
-          <div class="eyebrow">Coach Panel</div>
           <div class="panel__title">Live Widgets</div>
-          <div class="subtitle">Status für Screenshots in Landscape sichtbar.</div>
+          
         </div>
 
         <div class="stat-grid">
@@ -101,23 +99,21 @@ const swLabel = computed(() => {
           </div>
         </div>
 
-        <q-separator spaced color="accent" />
+        <q-separator spaced />
 
         <div class="highlights">
-          <div v-for="highlight in workoutStore.highlights" :key="highlight.title" class="highlight">
+          <div
+            v-for="highlight in workoutStore.highlights"
+            :key="highlight.title"
+            class="highlight"
+          >
             <div class="highlight__label">{{ highlight.title }}</div>
             <div class="highlight__value">{{ highlight.value }}</div>
             <div class="highlight__detail">{{ highlight.detail }}</div>
           </div>
         </div>
 
-        <q-banner inline-actions rounded class="sw-banner bg-primary text-white q-mt-md">
-          Workbox Service Worker aktiv. Öffne die DevTools → Application → Service Workers
-          für den Screenshot.
-          <template #action>
-            <q-btn flat dense color="white" icon="visibility" label="Zeigen" to="/impressum" />
-          </template>
-        </q-banner>
+        
       </div>
     </section>
   </q-page>
@@ -135,10 +131,10 @@ const swLabel = computed(() => {
   grid-template-columns: 2fr 1fr;
   gap: 16px;
   padding: 16px;
-  background: linear-gradient(120deg, #0f1629, #1c2b46);
-  color: #f3f7ff;
+  background: #f7f7f7;
+  color: #1c1c1c;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid #e1e1e1;
 }
 
 .hero__copy h1 {
@@ -165,15 +161,45 @@ const swLabel = computed(() => {
   gap: 8px;
 }
 
+.neutral-chip {
+  background: #ededed;
+  color: #1c1c1c;
+  border-color: #d6d6d6;
+}
+
+.neutral-chip.q-chip--outline {
+  background: transparent;
+  color: #2c2c2c;
+  border-color: #cfcfcf;
+}
+
+.neutral-btn {
+  background: #e6e6e6;
+  color: #1c1c1c;
+  border: 1px solid #cfcfcf;
+}
+
+.neutral-btn.q-btn--flat {
+  background: transparent;
+  border-color: transparent;
+  color: #2c2c2c;
+}
+
+.neutral-btn.q-btn--outline {
+  background: transparent;
+  border-color: #cfcfcf;
+  color: #2c2c2c;
+}
+
 .eyebrow {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7cd0c3;
+  color: #505050;
 }
 
 .subtitle {
-  color: #b2bed6;
+  color: #6a6a6a;
   margin-top: 4px;
 }
 
@@ -184,10 +210,10 @@ const swLabel = computed(() => {
 }
 
 .panel {
-  background: rgba(255, 255, 255, 0.9);
+  background: #fafafa;
   border-radius: 16px;
   padding: 14px;
-  box-shadow: 0 14px 30px rgba(12, 18, 34, 0.12);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
 }
 
 .panel.list {
@@ -195,9 +221,9 @@ const swLabel = computed(() => {
 }
 
 .panel.side {
-  background: linear-gradient(160deg, #0c1222, #152038);
-  color: #f5f7fc;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #f2f2f2;
+  color: #1c1c1c;
+  border: 1px solid #e1e1e1;
 }
 
 .panel__head {
@@ -210,11 +236,7 @@ const swLabel = computed(() => {
 .panel__title {
   font-size: 20px;
   font-weight: 700;
-  color: #111827;
-}
-
-.panel.side .panel__title {
-  color: #ffffff;
+  color: inherit;
 }
 
 .workout-list {
@@ -236,8 +258,8 @@ const swLabel = computed(() => {
 }
 
 .badge {
-  background: #0f1729;
-  color: #c6e2ff;
+  background: #e5e5e5;
+  color: #1f1f1f;
   padding: 6px 10px;
   border-radius: 30px;
   font-weight: 700;
@@ -252,14 +274,14 @@ const swLabel = computed(() => {
 }
 
 .difficulty {
-  color: #6b7280;
+  color: #666666;
   font-size: 13px;
   margin-left: 6px;
 }
 
 .card__meta {
   margin-top: 4px;
-  color: #4b5563;
+  color: #4a4a4a;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -272,7 +294,7 @@ const swLabel = computed(() => {
 }
 
 .sensor {
-  background: #eef2ff;
+  background: #ededed;
   padding: 4px 8px;
   border-radius: 10px;
 }
@@ -286,7 +308,7 @@ const swLabel = computed(() => {
 }
 
 .vibe {
-  color: #1f2937;
+  color: #2c2c2c;
   font-weight: 600;
 }
 
@@ -298,23 +320,23 @@ const swLabel = computed(() => {
 }
 
 .stat {
-  background: rgba(255, 255, 255, 0.06);
+  background: #f2f2f2;
   border-radius: 10px;
   padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid #dfdfdf;
 }
 
 .stat__label {
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #9cb6e5;
+  color: #616161;
 }
 
 .stat__value {
   font-size: 20px;
   font-weight: 800;
-  color: #fefefe;
+  color: #1c1c1c;
   margin-top: 4px;
 }
 
@@ -325,16 +347,16 @@ const swLabel = computed(() => {
 }
 
 .highlight {
-  background: rgba(255, 255, 255, 0.03);
+  background: #f6f6f6;
   border-radius: 12px;
   padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid #e1e1e1;
 }
 
 .highlight__label {
   font-size: 12px;
   letter-spacing: 0.08em;
-  color: #8ab8ff;
+  color: #4f4f4f;
   text-transform: uppercase;
 }
 
@@ -344,12 +366,14 @@ const swLabel = computed(() => {
 }
 
 .highlight__detail {
-  color: #c5d2e8;
+  color: #5f5f5f;
   margin-top: 2px;
 }
 
 .sw-banner {
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #f7f7f7;
+  color: #1c1c1c;
+  border: 1px solid #e1e1e1;
 }
 
 @media (max-width: 1023px) {
