@@ -1,26 +1,24 @@
 <script setup>
-import {
-  computed, onBeforeUnmount, onMounted, provide, ref,
-} from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, onBeforeUnmount, onMounted, provide, ref } from "vue";
+import { useRoute } from "vue-router";
 
 const leftDrawerOpen = ref(false);
 const route = useRoute();
-const swStatus = ref({ status: 'pending' });
+const swStatus = ref({ status: "pending" });
 
 const navItems = [
-  { to: '/', name: 'home', label: 'Dashboard'},
-  { to: '/about', name: 'about', label: 'Coaching'},
-  { to: '/impressum', name: 'impressum', label: 'Impressum'},
+  { to: "/", name: "home", label: "Dashboard" },
+  { to: "/about", name: "about", label: "Coaching" },
+  { to: "/impressum", name: "impressum", label: "Impressum" },
 ];
 
-const logo = `../public/icon/sadat_logo.png`;
+const logo = `/icon/sadat_logo.png`;
 
 const activeRoute = computed(() => route.name);
 const swStatusLabel = computed(() => {
   const status = swStatus.value.status || swStatus.value;
-  if (status === 'offline-ready') return 'Offline ready';
-  if (status === 'registered') return 'Workbox ready';
+  if (status === "offline-ready") return "Offline ready";
+  if (status === "registered") return "Workbox ready";
   return `SW: ${status}`;
 });
 
@@ -36,14 +34,14 @@ onMounted(() => {
   if (window.__FITFORGE_SW_STATUS__) {
     swStatus.value = window.__FITFORGE_SW_STATUS__;
   }
-  window.addEventListener('fitforge-sw', handleSwEvent);
+  window.addEventListener("fitforge-sw", handleSwEvent);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener('fitforge-sw', handleSwEvent);
+  window.removeEventListener("fitforge-sw", handleSwEvent);
 });
 
-provide('swStatus', swStatus);
+provide("swStatus", swStatus);
 </script>
 
 <template>
@@ -53,7 +51,7 @@ provide('swStatus', swStatus);
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
         <div class="brand">
           <q-avatar square size="42px">
-            <img :src="logo" alt="FitForge logo">
+            <img :src="logo" alt="FitForge logo" />
           </q-avatar>
           <div class="brand__text">
             <div class="brand__name">FitForge</div>
@@ -69,16 +67,35 @@ provide('swStatus', swStatus);
       </q-toolbar>
 
       <q-tabs align="left" dense class="fitforge-tabs">
-        <q-route-tab v-for="item in navItems" :key="item.to" :to="item.to" :label="item.label" :icon="item.icon" />
+        <q-route-tab
+          v-for="item in navItems"
+          :key="item.to"
+          :to="item.to"
+          :label="item.label"
+          :icon="item.icon"
+        />
       </q-tabs>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" side="left" :width="260" class="fitforge-drawer" show-if-above>
+    <q-drawer
+      v-model="leftDrawerOpen"
+      side="left"
+      :width="260"
+      class="fitforge-drawer"
+      show-if-above
+    >
       <div class="drawer__head">
         <div class="drawer__title">Navigation</div>
       </div>
       <q-list separator>
-        <q-item v-for="item in navItems" :key="item.to" clickable v-ripple :active="activeRoute === item.name" :to="item.to">
+        <q-item
+          v-for="item in navItems"
+          :key="item.to"
+          clickable
+          v-ripple
+          :active="activeRoute === item.name"
+          :to="item.to"
+        >
           <q-item-section avatar>
             <q-icon :name="item.icon" />
           </q-item-section>
@@ -87,7 +104,6 @@ provide('swStatus', swStatus);
           </q-item-section>
         </q-item>
       </q-list>
-      
     </q-drawer>
 
     <q-page-container class="fitforge-body">
@@ -98,22 +114,22 @@ provide('swStatus', swStatus);
 
 <style>
 @font-face {
-  font-family: 'Montserrat';
-  src: url('/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Lora';
-  src: url('/fonts/Lora/Lora-Regular.ttf') format('truetype');
+  font-family: "Lora";
+  src: url("/fonts/Lora/Lora-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'LibreBodoni';
-  src: url('/fonts/LibreBodoni/LibreBodoni-Regular.ttf') format('truetype');
+  font-family: "LibreBodoni";
+  src: url("/fonts/LibreBodoni/LibreBodoni-Regular.ttf") format("truetype");
 }
 
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
